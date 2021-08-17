@@ -236,7 +236,7 @@ app = new Vue({
                     newCommit(nn = 0) {
                         hideTtp();
                         if (this.configs.rdate && (!this.configs.dateFormated || nn))
-                            this.configs.showDays && this.aday(moment.locale('pt')(this.date).format('ddd, DD')), this.configs.dateFormated = moment(this.date).format(this.dateFormat.replace(new RegExp("(?:(\:time))", "g"), this.randHMS()));
+                            this.configs.showDays && this.aday(moment(this.date).locale('pt').format('ddd, DD')), this.configs.dateFormated = moment(this.date).format(this.dateFormat.replace(new RegExp("(?:(\:time))", "g"), this.randHMS()));
                         if (this.configs.rmsg && (!this.configs.msg || nn))
                             this.configs.msg = Math.random().toString(16).slice(2);
                         this.commit = `git add -A && ${this.configs.gad ? `GIT_AUTHOR_DATE='${this.configs.dateFormated}' ` : ''}${this.configs.gcd ? `GIT_COMMITTER_DATE='${this.configs.dateFormated}' ` : ''}git commit -m '${this.configs.msg}'`
