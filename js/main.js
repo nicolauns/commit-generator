@@ -35,11 +35,12 @@ app = new Vue({
 							<div class="form-row justify-content-center align-items-center">
 								<div class="col-10 col-sm-12 my-1">
 									<div class="input-group">
-                                        <span class="input-group-btn">
+                                        <span class="input-group-prepend">
                                             <v-select placeholder="Select a type" v-model="type" :options="commitTypes"></v-select>
                                         </span>
 										<input v-model="commit" style="border-radius:.25rem" class="form-control blr-0" placeholder="Commit message" id="commit" onfocus="this.select()">
-                                        <span class="input-group-btn">
+                                        <span class="input-group-append">
+                                            <span :class="['input-group-text', commit.length - maxLength > 0 ? 'text-danger' : '']">{{ formatLength(commit.length - maxLength) }}</span>
                                             <button data-clipboard-text :data-clipboard-text="getCommit()" type="button" class="btn btn-dark bl-0" data-toggle="tooltip" data-placement="bottom" data-original-title="Copy commit to clipboard."><i class="fal fa-copy"></i></button>
                                         </span>
 									</div>
@@ -63,6 +64,7 @@ app = new Vue({
                 data() {
                     return {
                         commit: '',
+                        maxLength: 50,
                         type: '',
                         commitTypes: commitTypes,
                         config: this.$storage.get('committer', {
@@ -84,6 +86,13 @@ app = new Vue({
                             return `git commit -m '${type} ${this.commit}'`;
                         }
                         return type + ' ' + this.commit;
+                    },
+                    formatLength(lenght) {
+                        console.log(lenght);
+                        if (lenght < 0) {
+                            return Math.abs(lenght);
+                        }
+                        return '-' + lenght;
                     },
                 },
                 watch: {
