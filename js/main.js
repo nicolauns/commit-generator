@@ -88,7 +88,6 @@ app = new Vue({
                         return type + ' ' + this.commit;
                     },
                     formatLength(lenght) {
-                        console.log(lenght);
                         if (lenght < 0) {
                             return Math.abs(lenght);
                         }
